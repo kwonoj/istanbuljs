@@ -630,6 +630,10 @@ function coverLogicalExpression(path) {
 }
 
 const codeVisitor = {
+    ForStatement: entries(blockProp('body'), coverStatement)
+};
+
+const codeVisitor2 = {
     ArrowFunctionExpression: entries(convertArrowExpression, coverFunction),
     AssignmentPattern: entries(coverAssignmentPattern),
     BlockStatement: entries(), // ignore processing only
@@ -669,6 +673,7 @@ const codeVisitor = {
     ConditionalExpression: entries(coverTernary),
     LogicalExpression: entries(coverLogicalExpression)
 };
+
 const globalTemplateAlteredFunction = template(`
         var Function = (function(){}).constructor;
         var global = (new Function(GLOBAL_COVERAGE_SCOPE))();
